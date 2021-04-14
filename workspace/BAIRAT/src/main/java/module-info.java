@@ -7,5 +7,7 @@
  *
  */
 module BAIRAT {
-  requires static lombok;
+  requires static lombok; // efficient Java
+  requires java.desktop;  // Robot
+  requires tess4j;        // OCR
 }
