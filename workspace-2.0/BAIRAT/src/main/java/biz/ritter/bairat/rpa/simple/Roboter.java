@@ -40,6 +40,7 @@ public class Roboter {
     Tesseract ocrEngine = new Tesseract();
     ocrEngine.setLanguage("deu");
     ocrEngine.setDatapath("/usr/local/Cellar/tesseract-lang/4.1.0/share/tessdata/");
+    ocrEngine.setTessVariable("user_defined_dpi", "227");
 
     String result = ocrEngine.doOCR(fullScreen);
     return result;
