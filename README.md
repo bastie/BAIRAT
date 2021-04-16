@@ -1,36 +1,33 @@
 # BAIRAT
 Basties Artificial Intelligence Robot process Automation Test
 
+Attention: This is a PoC project.
+
 ## Notes
-Use Maven, Gradle or what you need but also you can make a walk thru the dependency hell of Java 
+Project is using 
+* Maven, 
+* Lombok, 
+* Tesseract with tess4j, 
+* H2Database 
 
-Required Java coal of hell
+and is under developing with 
 
-* commons-io
-* jai-imageio-core
-* jna
-* lept4j
-* tess4j
-* slf4j-api
-* slf4j-simple [optional]
+* vi, 
+* Eclipse
 
-Runtime coal
+under using from
 
-* Java coal above
+* Java 11+,
+* zsh
+
+
+### Runtime notes
+
 * tesseract
 * tesseract-lang [optional]
 * jna.library.path=/opt/local/lib/:/usr/local/Cellar/tesseract/4.1.1/lib     #if it is same on your system
 * tesseractInstance.setDatapath("/usr/local/Cellar/tesseract-lang/4.1.0/share/tessdata/");        // if it is same on your system
 
-Development coal
-
-* runtime coal above
-* eclipse [optional] or other IDE if you like
-* vi [optional] never false to have a VI or a HAL-9000
-* lombok
-* jdk
-
-Why do you walk? Because you can and you do and you know all potential security problem libraries...
 
 
-
+``#EOF``
