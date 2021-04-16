@@ -10,9 +10,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
-import lombok.Getter;
 import lombok.NonNull;
-import net.sourceforge.tess4j.Tesseract;
 
 /**
  * @author Sͬeͥbͭaͭsͤtͬian
@@ -20,7 +18,6 @@ import net.sourceforge.tess4j.Tesseract;
  */
 public class Roboter {
 
-  @Getter
   private Robot instance;
   
   public Roboter () {
@@ -30,20 +27,6 @@ public class Roboter {
     catch (AWTException rethrow) {
       throw new RuntimeException(rethrow);
     }
-  }
-  
-  public String getTextFromFullScreen () throws Throwable {
-    BufferedImage fullScreen = instance.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-    fullScreen = this.getFullScreenshot();
-    
-    
-    Tesseract ocrEngine = new Tesseract();
-    ocrEngine.setLanguage("deu");
-    ocrEngine.setDatapath("/usr/local/Cellar/tesseract-lang/4.1.0/share/tessdata/");
-    ocrEngine.setTessVariable("user_defined_dpi", "227");
-
-    String result = ocrEngine.doOCR(fullScreen);
-    return result;
   }
   
   /**
@@ -64,10 +47,21 @@ public class Roboter {
     return this.getScreenshot(objectWrapper);
   }
   
+  /**
+   * Long version of screenshot method.
+   * 
+   * @param rect region of screenshot
+   * @return
+   */
   public BufferedImage getScreenshot (@NonNull Rectangle rect) {
     return this.instance.createScreenCapture(rect);
   }
   
+  /**
+   * Short version of full screen screenshot.
+   * 
+   * @return
+   */
   public BufferedImage getFullScreenshot () {
     return this.getScreenshot();
   }

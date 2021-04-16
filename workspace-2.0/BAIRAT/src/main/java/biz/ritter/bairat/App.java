@@ -8,8 +8,10 @@ import static java.lang.System.Logger.Level;
 
 import java.util.Base64;
 
+import biz.ritter.bairat.io.DatabaseUtil;
+import biz.ritter.bairat.io.OcrUtil;
+import biz.ritter.bairat.pojo.Scan;
 import biz.ritter.bairat.rpa.simple.Roboter;
-import biz.ritter.bairat.rpa.storage.Depot;
 
 /**
  * 
@@ -33,14 +35,15 @@ public class App {
     
     
     try {
-      var result = "";
+      Scan scanResult = new Scan();
       
       Roboter worker = new Roboter();
-      result = worker.getTextFromFullScreen();
+      scanResult.setImage(worker.getFullScreenshot());
+      scanResult.setOcrResult(OcrUtil.getTextFromFullScreen(scanResult.getImage()));
       
-      Depot holder = new Depot ();
-      result = holder.test(Base64.getEncoder().encodeToString(result.getBytes()));
-      System.out.printf("OCR: %s%n",new String(Base64.getDecoder().decode(result.getBytes())));
+      DatabaseUtil holder = new DatabaseUtil ();
+      scanResult.setOcrResult(holder.test(Base64.getEncoder().encodeToString(scanResult.getOcrResult().getBytes())));
+      System.out.printf("OCR: %s%n",new String(Base64.getDecoder().decode(scanResult.getOcrResult().getBytes())));
     }
     catch (Throwable bug_is_in_the_air) {
       System.getLogger(App.class.getPackageName()).log(Level.ERROR, "I'm sorry Dave i'm afraid i can't do that.");

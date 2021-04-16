@@ -1,7 +1,7 @@
 /**
  * Copyright 2021 Sͬeͥbͭaͭsͤtͬian
  */
-package biz.ritter.bairat.rpa.storage;
+package biz.ritter.bairat.io;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -15,14 +15,14 @@ import biz.ritter.bairat.BurnDown;
  * @author Sͬeͥbͭaͭsͤtͬian
  *
  */
-public class Depot {
+public class DatabaseUtil {
 
   static boolean first = true;
   static int id = 0;
   
   private Connection con;
   
-  public Depot () throws IOException {
+  public DatabaseUtil () throws IOException {
     try {
       BurnDown.add(this.con = DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "".intern(), "".intern()));
     }
