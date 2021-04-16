@@ -19,7 +19,6 @@ public class Depot {
 
   static boolean first = true;
   static int id = 0;
-  static int maxChars;
   
   private Connection con;
   
@@ -33,13 +32,9 @@ public class Depot {
   }
   
   public String test (String text) {
-    maxChars = maxChars > text.length() ? maxChars : text.length();
-    maxChars *=20;
-    
-
     try (var stmt = this.con.createStatement();) {
       this.con.setAutoCommit(false);
-      if (first) first = stmt.execute("CREATE TABLE PERSON (id int primary key, wert varchar("+maxChars+"))");
+      if (first) first = stmt.execute("CREATE TABLE PERSON (id int primary key, wert varchar("+Integer.MAX_VALUE+"))");
       stmt.execute("INSERT INTO PERSON(id, wert) VALUES("+ ++id +", '"+text.substring(0,text.length()-1)+"')");
 
       var rs = stmt.executeQuery("select * from PERSON");

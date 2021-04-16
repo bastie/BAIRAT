@@ -6,6 +6,8 @@ package biz.ritter.bairat;
 import lombok.*;
 import static java.lang.System.Logger.Level;
 
+import java.util.Base64;
+
 import biz.ritter.bairat.rpa.simple.Roboter;
 import biz.ritter.bairat.rpa.storage.Depot;
 
@@ -37,8 +39,8 @@ public class App {
       result = worker.getTextFromFullScreen();
       
       Depot holder = new Depot ();
-      result = holder.test(result);
-      System.out.printf("OCR: %s%n",result.substring(0,result.length() > 200 ? 200 : result.length()));
+      result = holder.test(Base64.getEncoder().encodeToString(result.getBytes()));
+      System.out.printf("OCR: %s%n",new String(Base64.getDecoder().decode(result.getBytes())));
     }
     catch (Throwable bug_is_in_the_air) {
       System.getLogger(App.class.getPackageName()).log(Level.ERROR, "I'm sorry Dave i'm afraid i can't do that.");
