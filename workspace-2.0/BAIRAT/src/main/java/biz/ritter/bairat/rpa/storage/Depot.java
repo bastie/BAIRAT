@@ -34,14 +34,14 @@ public class Depot {
   public String test (String text) {
     try (var stmt = this.con.createStatement();) {
       this.con.setAutoCommit(false);
-      if (first) first = stmt.execute("CREATE TABLE PERSON (id int primary key, wert varchar("+Integer.MAX_VALUE+"))");
-      stmt.execute("INSERT INTO PERSON(id, wert) VALUES("+ ++id +", '"+text.substring(0,text.length()-1)+"')");
+      if (first) first = stmt.execute("CREATE TABLE scanResult (scanKey INT PRIMARY KEY, scanValue VARCHAR("+Integer.MAX_VALUE+"))");
+      stmt.execute("INSERT INTO SCANRESULT(scanKey, scanValue) VALUES("+ ++id +", '"+text+"')");
 
-      var rs = stmt.executeQuery("select * from PERSON");
+      var rs = stmt.executeQuery("select * from scanResult");
       rs.next();
 
       this.con.commit();
-      return rs.getString("wert");
+      return rs.getString("scanValue");
     } catch (SQLException rethrow) {
       throw new UncheckedIOException(new IOException(rethrow));
     }
