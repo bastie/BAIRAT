@@ -24,6 +24,11 @@
 	  <artifactId>slf4j-simple</artifactId>
 	  <version>1.7.30</version>
 	</dependency>
+	<dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.200</version>
+    </dependency>
   </dependencies>
   
   <properties>
@@ -128,6 +133,14 @@
 	        </execution>
 	    </executions>
 	  </plugin>
+       <plugin>
+           <groupId>org.codehaus.mojo</groupId>
+           <artifactId>exec-maven-plugin</artifactId>
+           <version>1.6.0</version>
+           <configuration>
+               <mainClass>biz.ritter.bairat.App</mainClass>
+           </configuration>
+       </plugin>
     </plugins>    
   </build>
   

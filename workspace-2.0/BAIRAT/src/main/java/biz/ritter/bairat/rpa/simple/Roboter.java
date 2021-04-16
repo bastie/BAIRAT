@@ -32,7 +32,7 @@ public class Roboter {
     }
   }
   
-  public String test () throws Throwable {
+  public String getTextFromFullScreen () throws Throwable {
     BufferedImage fullScreen = instance.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
     fullScreen = this.getFullScreenshot();
     

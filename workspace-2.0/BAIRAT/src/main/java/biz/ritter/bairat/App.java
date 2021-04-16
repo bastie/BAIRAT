@@ -7,6 +7,7 @@ import lombok.*;
 import static java.lang.System.Logger.Level;
 
 import biz.ritter.bairat.rpa.simple.Roboter;
+import biz.ritter.bairat.rpa.storage.Depot;
 
 /**
  * 
@@ -30,15 +31,20 @@ public class App {
     
     
     try {
-      Roboter worker = new Roboter();
-      String result = worker.test();
-      System.out.printf("%s%n",result);
+      var result = "";
       
+      Roboter worker = new Roboter();
+      result = worker.getTextFromFullScreen();
+      
+      Depot holder = new Depot ();
+      result = holder.test(result);
+      System.out.printf("OCR: %s%n",result.substring(0,result.length() > 200 ? 200 : result.length()));
     }
     catch (Throwable bug_is_in_the_air) {
       System.getLogger(App.class.getPackageName()).log(Level.ERROR, "I'm sorry Dave i'm afraid i can't do that.");
-      bug_is_in_the_air.printStackTrace();
+      bug_is_in_the_air.printStackTrace(System.err);
     }
+    System.getLogger(App.class.getPackageName()).log(Level.INFO, "Neo took the red pill");
   }
 
 }
