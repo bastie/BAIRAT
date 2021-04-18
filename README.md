@@ -5,10 +5,11 @@ Attention: This is a PoC project.
 
 ## Notes
 Project is using 
-* Maven, 
-* Lombok, 
-* Tesseract with tess4j, 
-* H2Database 
+* Dependency and Buildsystem (Maven), 
+* Java Dialect (Lombok), 
+* OCR (Tesseract with tess4j), 
+* RDBMS (H2Database )
+* JPA (Hibernate)
 
 and is under developing with 
 
