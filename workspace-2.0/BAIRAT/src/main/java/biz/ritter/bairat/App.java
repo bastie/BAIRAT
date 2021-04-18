@@ -39,10 +39,10 @@ public class App {
       
       Roboter worker = new Roboter();
       scanResult.setImage(worker.getFullScreenshot());
-      scanResult.setOcrResult(OcrUtil.getTextFromFullScreen(scanResult.getImage()));
+      scanResult.setOcrResult(Base64.getEncoder().encodeToString(OcrUtil.getTextFromFullScreen(scanResult.getImage()).getBytes()));
       
       DatabaseUtil holder = new DatabaseUtil ();
-      scanResult.setOcrResult(holder.test(Base64.getEncoder().encodeToString(scanResult.getOcrResult().getBytes())));
+      scanResult = holder.test(scanResult);
       System.out.printf("OCR: %s%n",new String(Base64.getDecoder().decode(scanResult.getOcrResult().getBytes())));
     }
     catch (Throwable bug_is_in_the_air) {

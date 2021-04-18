@@ -3,13 +3,10 @@
  */
 package biz.ritter.bairat.io;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-import biz.ritter.bairat.BurnDown;
+import biz.ritter.bairat.pojo.Scan;
 
 /**
  * @author Sͬeͥbͭaͭsͤtͬian
@@ -20,30 +17,23 @@ public class DatabaseUtil {
   static boolean first = true;
   static int id = 0;
   
-  private Connection con;
+  private EntityManagerFactory entityManagerFactory;
   
-  public DatabaseUtil () throws IOException {
-    try {
-      BurnDown.add(this.con = DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "".intern(), "".intern()));
-    }
-    catch (SQLException rethrow) {
-      throw new UncheckedIOException(new IOException(rethrow));
-    }
+  public DatabaseUtil () {
+      this.entityManagerFactory = Persistence.createEntityManagerFactory( "bairat" );
   }
   
-  public String test (String text) {
-    try (var stmt = this.con.createStatement();) {
-      this.con.setAutoCommit(false);
-      if (first) first = stmt.execute("CREATE TABLE scanResult (scanKey INT PRIMARY KEY, scanValue VARCHAR("+Integer.MAX_VALUE+"))");
-      stmt.execute("INSERT INTO SCANRESULT(scanKey, scanValue) VALUES("+ ++id +", '"+text+"')");
+  public Scan test (Scan toStore) {
+    var entityManager = this.entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(toStore);
+    entityManager.getTransaction().commit();
+    
+    entityManager.getTransaction().begin();
+    var result= entityManager.createQuery("from Scan", toStore.getClass()).getResultList().get(0);
+    entityManager.getTransaction().commit();
+    entityManager.close();
 
-      var rs = stmt.executeQuery("select * from scanResult");
-      rs.next();
-
-      this.con.commit();
-      return rs.getString("scanValue");
-    } catch (SQLException rethrow) {
-      throw new UncheckedIOException(new IOException(rethrow));
-    }
+    return result;
   }
 }
